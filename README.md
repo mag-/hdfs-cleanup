@@ -14,12 +14,12 @@ run
 
 Help
 ====
-Usage of ./hdfs-cleanup:
-  -delete=false: delete or just print files to delete to STDOUT
-  -delete_limit=1000: delete [delete_limit] files at once
-  -duration=720: mtime in hours
-  -namenode="localhost": namenode address
-  -port="50070": namenode port
-  -prefix="/tmp": prefix to cleanup
-
-
+```
+  Usage of ./hdfs-cleanup:
+    -delete=false: delete or just print files to delete to STDOUT
+    -delete_limit=1000: delete [delete_limit] files at once
+    -duration=720: mtime in hours
+    -namenode="localhost": namenode address
+    -port="50070": namenode port
+    -prefix="/tmp": prefix to cleanup
+```
