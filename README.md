@@ -1,7 +1,9 @@
 hdfs-cleanup
 ============
 
-hdfs-cleanup script to delete files older than [duration] from hdfs directory ( default to /tmp )
+hdfs-cleanup solves the problem of cleaning up /tmp on hadoop in a multi-user environment
+script will delete files older than [mtime] hours (default 30 days) from hdfs directory (default /tmp)
+
 
 Usage
 =====
@@ -18,11 +20,11 @@ run
 Help
 ====
 ```
-  Usage of ./hdfs-cleanup:
-    -delete=false: delete or just print files to delete to STDOUT
-    -delete_limit=1000: delete [delete_limit] files at once
-    -duration=720: mtime in hours
-    -namenode="localhost": namenode address
-    -port="50070": namenode port
-    -prefix="/tmp": prefix to cleanup
+Usage of ./hdfs-cleanup:
+  -delete=false: delete or just print files to delete to STDOUT
+  -delete_limit=1000: delete [delete_limit] files at once
+  -mtime=720: mtime of files to delete in hours
+  -namenode="localhost": namenode address
+  -port="50070": namenode port
+  -prefix="/tmp": prefix to cleanup
 ```

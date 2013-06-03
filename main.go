@@ -17,7 +17,7 @@ var config struct {
 	namenode     string
 	port         string
 	prefix       string
-	duration     int
+	mtime        int
 	delete       bool
 	delete_limit int
 }
@@ -68,7 +68,7 @@ func parseImage() {
 		if !strings.HasPrefix(fields[0], "d") && strings.HasPrefix(file, config.prefix) {
 			t0, _ := time.Parse("2006-01-02", fields[5])
 			t1 := time.Now()
-			if t1.Sub(t0).Hours() > float64(config.duration) {
+			if t1.Sub(t0).Hours() > float64(config.mtime) {
 				count = count + 1
 				if config.delete {
 					if count%config.delete_limit == 0 {
@@ -101,7 +101,7 @@ func main() {
 	flag.StringVar(&config.namenode, "namenode", "localhost", "namenode address")
 	flag.StringVar(&config.port, "port", "50070", "namenode port")
 	flag.StringVar(&config.prefix, "prefix", "/tmp", "prefix to cleanup")
-	flag.IntVar(&config.duration, "duration", 720, "mtime in hours")
+	flag.IntVar(&config.mtime, "mtime", 720, "mtime of files to delete in hours")
 	flag.BoolVar(&config.delete, "delete", false, "delete or just print files to delete to STDOUT")
 	flag.IntVar(&config.delete_limit, "delete_limit", 1000, "delete [delete_limit] files at once")
 	flag.Parse()
