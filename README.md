@@ -6,11 +6,14 @@ hdfs-cleanup script to delete files older than [duration] from hdfs directory ( 
 Usage
 =====
 Run:
+```
 ./hdfs-cleanup
-
+```
 carefully! inspect the output
 run
+```
 ./hdfs-cleanup -delete=true
+```
 
 Help
 ====
