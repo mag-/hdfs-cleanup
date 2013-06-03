@@ -72,12 +72,7 @@ func parseImage() {
 				count = count + 1
 				if config.delete {
 					if count%config.delete_limit == 0 {
-						cmd := exec.Command("hadoop", delete_command...)
-						log.Print(cmd)
-						err := cmd.Run()
-						if err != nil {
-							log.Fatal(err)
-						}
+						deleteFiles(delete_command)
 						delete_command = []string{"fs", "-rm", "-f"}
 					} else {
 						delete_command = append(delete_command, file)
@@ -93,6 +88,18 @@ func parseImage() {
 		log.Fatal("buffer size to small")
 	}
 	if err != io.EOF {
+		log.Fatal(err)
+	}
+	if config.delete {
+		deleteFiles(delete_command)
+	}
+}
+
+func deleteFiles(delete_command []string) {
+	cmd := exec.Command("hadoop", delete_command...)
+	log.Print(cmd)
+	err := cmd.Run()
+	if err != nil {
 		log.Fatal(err)
 	}
 }
