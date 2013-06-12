@@ -23,7 +23,7 @@ var config struct {
 }
 
 func getImage() {
-	out, err := os.Create("image.tmp")
+	out, err := os.Create("/tmp/image.tmp")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,7 +41,7 @@ func getImage() {
 }
 
 func convert() {
-	cmd := exec.Command("hdfs", "oiv", "-i", "image.tmp", "-o", "image.txt")
+	cmd := exec.Command("hdfs", "oiv", "-i", "/tmp/image.tmp", "-o", "/tmp/image.txt")
 	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)
@@ -49,7 +49,7 @@ func convert() {
 }
 
 func parseImage() {
-	file, err := os.Open("image.txt")
+	file, err := os.Open("/tmp/image.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -104,6 +104,11 @@ func deleteFiles(delete_command []string) {
 	}
 }
 
+func cleanup(){
+	os.Remove("/tmp/image.tmp")
+	os.Remove("/tmp/image.txt")
+}
+
 func main() {
 	flag.StringVar(&config.namenode, "namenode", "localhost", "namenode address")
 	flag.StringVar(&config.port, "port", "50070", "namenode port")
@@ -118,4 +123,6 @@ func main() {
 	convert()
 	log.Print("Processing files")
 	parseImage()
+	log.Print("Cleaning up")
+	cleanup()
 }
